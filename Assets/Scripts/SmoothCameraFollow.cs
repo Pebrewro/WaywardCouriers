@@ -2,24 +2,24 @@
 
 public class SmoothCameraFollow : MonoBehaviour
 {
-    #region Variables
-    
-        private Vector3 _offset;
-        [SerializeField] private Transform target;
-        [SerializeField] private float smoothTime;
-        private Vector3 _currentVelocity = Vector3.zero;
-        
-    #endregion
-    
-    #region Unity callbacks
-    
-        private void Awake() => _offset = transform.position - target.position;
+    [SerializeField] private Transform target;
+    [SerializeField] private float smoothSpeed = 5f;
+    [SerializeField] private float distance = 2f;
+    [SerializeField] private float height = 1.5f;
+    [SerializeField] private float rotationDamping = 8f;
+    [SerializeField] private float positionDamping = 6f;
 
-        private void LateUpdate()
-        {
-            Vector3 targetPosition = target.position + _offset;
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothTime);
-        }
-        
-    #endregion
+    private Vector3 smoothedForward;
+
+    private void LateUpdate()
+    {
+        Vector3 targetForward = target.forward;
+        smoothedForward = Vector3.Slerp(smoothedForward, targetForward, Time.deltaTime * rotationDamping);
+        Vector3 horizontalOffset = -smoothedForward * distance;
+        Vector3 verticalOffset = Vector3.up * height;
+        Vector3 desiredPosition = target.position + horizontalOffset + verticalOffset;
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, positionDamping * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.LookRotation(target.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationDamping * Time.deltaTime);
+    }
 }

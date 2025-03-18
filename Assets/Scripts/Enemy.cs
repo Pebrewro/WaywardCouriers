@@ -11,10 +11,12 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float switchTargetAtDistance = 5f;
 
     [Header("Enemy Stats")]
-    public int maxHealth = 100;
+    public int maxHealth = 10;
+    public int currentHealth;
     public float detectionRadius = 10f;
     public float attackRange = 2f;
     public int damageAmount = 2;
+    private bool isDead = false;
 
     [Header ("Attributes")]
     private Animator anim;
@@ -30,10 +32,13 @@ public class Enemy : MonoBehaviour, IDamageable
         goods = GameObject.FindWithTag("Goods").transform;
         enemyAttack = GetComponent<EnemyAttack>();
 
+        currentHealth = maxHealth;
+
     }
 
     private void Update()
     {
+        if (isDead) return;
 
         if (currentTarget == null)
         {
@@ -96,9 +101,26 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void IDamageable.Damage(int amount)
     {
+        if (isDead) return;
+
         anim.SetTrigger("hurt");
         Debug.Log($"Ow. Screw you! I just took {amount}");
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
-    
+    private void Die()
+    {
+        isDead = true;
+        agent.isStopped = true;
+
+        Debug.Log("Enemy has died!");
+
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 2f);
+    }
 }

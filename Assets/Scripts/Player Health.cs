@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     [SerializeField] private Animator playerAnim;
 
+    [SerializeField] private Animator anim; //game over
+
     private void Awake()
     {
         playerAnim = GetComponent<Animator>();
@@ -40,5 +42,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log("Player has died.");
+        Time.timeScale = 0;
+        anim.SetBool("isQuest", true);
     }
 }

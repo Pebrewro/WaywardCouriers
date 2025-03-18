@@ -2409,7 +2409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Tutie Reele
+    name: Mr. Boulder
     characterSprite: {fileID: 21300000, guid: 246c561a778d4d041af068b5d5b7ada3, type: 3}
     sentences:
     - Oi, Courier! Got a special job for ya today.
@@ -3364,6 +3364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872cc39808b3e8c44a7b6d81fcd52bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseLabel: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &2078408972
 GameObject:
   m_ObjectHideFlags: 0

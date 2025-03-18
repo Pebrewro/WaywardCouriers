@@ -3878,7 +3878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Tutie Reele
+    name: Mr. Boulder
     characterSprite: {fileID: 21300000, guid: 246c561a778d4d041af068b5d5b7ada3, type: 3}
     sentences:
     - Ok, ok, my bad! Let me teach you the basics really quickly.

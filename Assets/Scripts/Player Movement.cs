@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float originalWalkSpeed;
     [SerializeField] private float runSpeed = 4f;
     [SerializeField] private float rotationSpeed = 100f;
-    [SerializeField] private float jumpForce = 7f;
 
     private bool walking = false;
 
@@ -32,7 +31,6 @@ public class Player : MonoBehaviour
         HandleAnimation();
         HandleRotation();
         HandleRunning();
-        HandleJumping();
     }
 
     void HandleMovement()
@@ -116,12 +114,4 @@ public class Player : MonoBehaviour
         }
     }
 
-    void HandleJumping()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(playerRigid.linearVelocity.y) < 0.01f)
-        {
-            playerRigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            playerAnim.SetTrigger("jump");
-        }
-    }
 }
